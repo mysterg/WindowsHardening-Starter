@@ -1,4 +1,4 @@
-
+#
 function Invoke-ProhibitedFiles {
     param([hashtable]$Config)
 

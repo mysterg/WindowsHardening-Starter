@@ -1,4 +1,4 @@
-
+#
 function Invoke-ApplicationSecurity {
     param([hashtable]$Config)
     Write-Host "[ApplicationSecurity] Use the submenu from the main script." -ForegroundColor DarkCyan

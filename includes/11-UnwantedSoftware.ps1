@@ -1,4 +1,4 @@
-
+#
 function Invoke-UnwantedSoftware {
     param([hashtable]$Config)
 

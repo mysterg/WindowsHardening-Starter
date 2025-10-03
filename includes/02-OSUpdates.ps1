@@ -1,4 +1,4 @@
-
+#
 function Invoke-OSUpdates {
     param([hashtable]$Config)
 

@@ -1,3 +1,4 @@
+
 # Windows Hardening – Teaching Template (PowerShell)
 
 This repository is a **template** for students to learn Windows hardening with a guided, menu‑driven PowerShell script.

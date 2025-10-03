@@ -1,4 +1,4 @@
-
+#
 function Invoke-ApplicationUpdates {
     param([hashtable]$Config)
 

@@ -1,4 +1,4 @@
-
+#
 function Invoke-DefensiveCountermeasures {
     param([hashtable]$Config)
 
