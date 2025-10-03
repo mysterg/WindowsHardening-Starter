@@ -1,40 +1,88 @@
-#
+# includes\07-UncategorizedOS.ps1
+# Uncategorized OS – STUBS ONLY (no working commands included)
+
 function Invoke-UncategorizedOS {
     param([hashtable]$Config)
 
-    if ($Config.Verbose) { Write-Host "[UncategorizedOS] Starting..." -ForegroundColor Cyan }
+    Write-Host "[Uncategorized OS] Start" -ForegroundColor Cyan
 
-    # Student tasks (call your task functions here)
-    # Example:
-    # Set-UncategorizedOS-Setting1 -Config $Config -WhatIf:$Config.WhatIf -Verbose:$Config.Verbose
-    # Set-UncategorizedOS-Setting2 -Config $Config -WhatIf:$Config.WhatIf -Verbose:$Config.Verbose
+    UOS-Disable-FileSharing            -Config $Config
+    UOS-Disable-RemoteDesktop          -Config $Config
+    UOS-Disable-RemoteAssistance       -Config $Config
+    UOS-Set-ExecutionPolicy-Restricted -Config $Config
 
-    if ($Config.Verbose) { Write-Host "[UncategorizedOS] Complete." -ForegroundColor Cyan }
+    Write-Host "[Uncategorized OS] Done" -ForegroundColor Cyan
 }
 
-function Set-UncategorizedOS-Setting1 {
+function UOS-Disable-FileSharing {
 <#
-.SYNOPSIS
-First task in UncategorizedOS.
-
 .EXPLANATION
-Describe what and why this setting matters.
+Disable file sharing by removing all SMB shares (non-interactively). Suppress errors from built-in/admin shares.
 
 .AI_PROMPT
-Write PowerShell that enforces <policy> for UncategorizedOS. Idempotent; respect -WhatIf/-Verbose; log via Write-Log.
+Return only PowerShell code (no markdown, no comments, no extra text):
+
+function UOS-Disable-FileSharing {
+  param([hashtable]$Config)
+  Get-SmbShare | Remove-SmbShare -Confirm:$false -ErrorAction SilentlyContinue
+  Write-Host "All SMB shares removed."
+}
 #>
-    param([hashtable]$Config, [switch]$WhatIf, [switch]$Verbose)
+    param([hashtable]$Config)
     # TODO
 }
 
-function Set-UncategorizedOS-Setting2 {
+
+function UOS-Disable-RemoteDesktop {
 <#
-.SYNOPSIS
-Second task in UncategorizedOS.
+.EXPLANATION
+Turn off Remote Desktop by setting fDenyTSConnections = 1.
 
 .AI_PROMPT
-Given a hashtable $Config, write an idempotent function to enforce <policy>. Use Write-Log.
+Return only PowerShell code:
+
+function UOS-Disable-RemoteDesktop {
+  param([hashtable]$Config)
+  Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server' -Name 'fDenyTSConnections' -Value 1
+  Write-Host "Remote Desktop disabled."
+}
 #>
-    param([hashtable]$Config, [switch]$WhatIf, [switch]$Verbose)
+    param([hashtable]$Config)
+    # TODO
+}
+
+function UOS-Disable-RemoteAssistance {
+<#
+.EXPLANATION
+Disable Remote Assistance by setting fAllowToGetHelp = 0.
+
+.AI_PROMPT
+Return only PowerShell code:
+
+function UOS-Disable-RemoteAssistance {
+  param([hashtable]$Config)
+  Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Remote Assistance' -Name 'fAllowToGetHelp' -Value 0
+  Write-Host "Remote Assistance disabled."
+}
+#>
+    param([hashtable]$Config)
+    # TODO
+}
+
+function UOS-Set-ExecutionPolicy-Restricted {
+<#
+.EXPLANATION
+Set PowerShell execution policy to Restricted (simple, blind-change). Your entry script relaunches with -ExecutionPolicy Bypass, so future runs still work unless GPO overrides.
+
+.AI_PROMPT
+Return only PowerShell code:
+
+function UOS-Set-ExecutionPolicy-Restricted {
+  param([hashtable]$Config)
+  Set-ExecutionPolicy Restricted -Force
+  Write-Host "Execution policy set to Restricted."
+}
+#>
+    param([hashtable]$Config)
     # TODO
 }

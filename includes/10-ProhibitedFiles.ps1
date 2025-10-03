@@ -1,40 +1,48 @@
-#
+# includes\10-ProhibitedFiles.ps1
+# Prohibited Files – STUBS ONLY (no working commands included)
+
 function Invoke-ProhibitedFiles {
     param([hashtable]$Config)
 
-    if ($Config.Verbose) { Write-Host "[ProhibitedFiles] Starting..." -ForegroundColor Cyan }
+    Write-Host "[Prohibited Files] Start" -ForegroundColor Cyan
+    
+    PF-Remove-ProhibitedExtensions -Config $Config
 
-    # Student tasks (call your task functions here)
-    # Example:
-    # Set-ProhibitedFiles-Setting1 -Config $Config -WhatIf:$Config.WhatIf -Verbose:$Config.Verbose
-    # Set-ProhibitedFiles-Setting2 -Config $Config -WhatIf:$Config.WhatIf -Verbose:$Config.Verbose
-
-    if ($Config.Verbose) { Write-Host "[ProhibitedFiles] Complete." -ForegroundColor Cyan }
+    Write-Host "[Prohibited Files] Done" -ForegroundColor Cyan
 }
 
-function Set-ProhibitedFiles-Setting1 {
+function PF-Remove-ProhibitedExtensions {
 <#
-.SYNOPSIS
-First task in ProhibitedFiles.
-
 .EXPLANATION
-Describe what and why this setting matters.
+Loop over $Config.ProhibitedExtensions, search C:\ recursively, and remove matching files.
+Print progress and handle errors so the loop continues.
 
 .AI_PROMPT
-Write PowerShell that enforces <policy> for ProhibitedFiles. Idempotent; respect -WhatIf/-Verbose; log via Write-Log.
-#>
-    param([hashtable]$Config, [switch]$WhatIf, [switch]$Verbose)
-    # TODO
-}
+Return only PowerShell code (no markdown, no comments, no extra text). Define a function named
+PF-Remove-ProhibitedExtensions with this signature:
 
-function Set-ProhibitedFiles-Setting2 {
-<#
-.SYNOPSIS
-Second task in ProhibitedFiles.
+param([hashtable]$Config)
 
-.AI_PROMPT
-Given a hashtable $Config, write an idempotent function to enforce <policy>. Use Write-Log.
+Behavior requirements:
+- Read the array $Config.ProhibitedExtensions.
+- If it is null or empty, print "No prohibited extensions configured." and return.
+- For each extension in the array:
+  - Print a progress line: Searching for files with extension <ext> in C:\...
+  - Recursively search under C:\ for matching **files** only.
+  - For each match, print "Removing file: <full path>" and delete it.
+  - Use try/catch so failures (e.g., access denied) do not stop the loop.
+- Suppress noisy errors on enumeration and deletion so the loop continues:
+  - Enumeration uses an error-suppression approach.
+  - Deletion uses an error-suppression approach.
+- Keep the implementation simple (no idempotence, no logging beyond Write-Host).
+
+Constraints:
+- Use built-in PowerShell cmdlets only.
+- Do not hardcode the list of extensions; use $Config.ProhibitedExtensions.
+- Target drive root C:\.
+- Produce a single function that performs the whole task.
+
 #>
-    param([hashtable]$Config, [switch]$WhatIf, [switch]$Verbose)
+    param([hashtable]$Config)
     # TODO
 }

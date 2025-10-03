@@ -24,6 +24,25 @@ $script:GV = [ordered]@{
     # LocalPolicy Variables
     LegalNoticeText = 'Authorized Use Only.'
 
+    # DefensiveCountermeasures Variables
+    FirewallLogPath       = '%SystemRoot%\System32\logfiles\firewall\allprofilesfw.log'
+    FirewallLogMaxSizeKB  = 16384
+
+    # Service Auditing Variables
+    ServicesToDisable = @(
+    'BTAGService','bthserv','Browser','MapsBroker','lfsvc','IISADMIN','irmon','lltdsvc',
+    'LxssManager','FTPSVC','MSiSCSI','sshd','PNRPsvc','p2psvc','p2pimsvc','PNRPAutoReg',
+    'Spooler','wercplsupport','RasAuto','SessionEnv','TermService','UmRdpService','RpcLocator',
+    'RemoteRegistry','RemoteAccess','LanmanServer','simptcp','SNMP','sacsvr','SSDPSRV',
+    'upnphost','WMSvc','WerSvc','Wecsvc','WMPNetworkSvc','icssvc','WpnService','PushToInstall',
+    'WinRM','W3SVC','XboxGipSvc','XblAuthManager','XblGameSave','XboxNetApiSvc','NetTcpPortSharing',
+    'DNS','LPDsvc','RasMan','SNMPTRAP','TlntSvr','TapiSrv','WebClient','LanmanWorkstation'
+)
+
+    # Prohibited Files Variables
+    ProhibitedExtensions = @('*.mp3','*.mp4','*.avi','*.mkv','*.ogg','*.flac')
+
+
 }
 
 # Optional alias so callers can just pass -Config $GV
