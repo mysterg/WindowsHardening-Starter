@@ -5,6 +5,12 @@ $script:GV = [ordered]@{
     Verbose = $true
     LogPath = "$env:PUBLIC\Documents\HardeningLog.txt"
 
+    # Document System Variables
+    # Resolve the interactive user's name for a Desktop path
+    $docUser = [System.Security.Principal.WindowsIdentity]::GetCurrent().Name.Split('\')[-1]
+    DocOutputDir               = "C:\Users\$docUser\Desktop\DOCS"
+    DocExecutableSearchRoots   = @('C:\Users','C:\Program Files','C:\Program Files (x86)')
+    
     # UserAuditing Variables
     TempPassword  = 'P@ssw0rd123!'  # demo value
     AdminRename   = 'nimda'
